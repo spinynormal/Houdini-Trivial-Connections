@@ -14,6 +14,59 @@ int hedgefromedge(int hedge){
     return newhedge;
 } 
 
+void setvtxAttrib (int hedge;string attrib){
+
+    int vtxprim = vertexprim(0 , hedge); 
+    int vtxpt = vertexprimindex(0 , hedge); 
+    setvertexattrib(0, attrib, vtxprim,vtxpt, 1 ); 
+
+}
+
+
+void sethedgeAattrib (int hedge;string attrib) {
+
+       int flip  = hedge_nextequiv(0, hedge);
+       setvtxAttrib(hedge,attrib );
+       setvtxAttrib(flip,attrib );
+
+}
+
+int checkvtx(int hedge;string attrib){
+
+    int vtxprim = vertexprim(0 , hedge); 
+    int vtxpt = vertexprimindex(0 , hedge); 
+    int inprimal = vertex( 0 , attrib , vtxprim,vtxpt); 
+
+    if ( inprimal == 1) {
+
+        return 1; 
+    }
+    else{
+        return 0; 
+    }
+
+}
+
+int checkhedge(int hedge;string attrib){
+
+int edge = checkvtx(hedge,attrib);
+int flip  = hedge_nextequiv(0, hedge);
+int edgeflip = checkvtx(flip,attrib);
+
+if (edge == 1 || edgeflip ==1){
+
+    return 1;
+}
+
+else {
+
+    return 0; 
+}
+
+
+}
+
+
 int signs(int hedge){
     int vtxprim = vertexprim(0 , hedge); 
     int vtxpt = vertexprimindex(0 , hedge); 
@@ -60,3 +113,4 @@ vector normal = prim( 0 , "N", prim);
 ej = cross(normal,ei ); 
 
 }
+
